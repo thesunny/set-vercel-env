@@ -6,7 +6,7 @@
   "author": "Sunny Hirai",
   "license": "MIT",
   "files": [
-    "build/*"
+    "bin/*"
   ],
   "bin": {
     "hello": "./bin/hello.js"

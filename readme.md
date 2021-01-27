@@ -1,5 +1,43 @@
 # Script Starter Kit
 
+## How to get started with `next-starter-kit`
+
+```sh
+# in your project root, initialize an empty git repo
+git init
+
+# pull next-starter-kit
+git pull git@github.com:thesunny/cli-starter-kit.git
+
+# Open the directory and `package.json`
+code . package.json
+```
+
+Edit `package.json` to fit your needs
+
+```json
+{
+  "name": "name-of-your-package",
+  "version": "0.1.0",
+  "description": "Description of your package"
+}
+```
+
+## How to update
+
+```sh
+# re-pull next-starter-kit
+git pull git@github.com:thesunny/cli-starter-kit.git
+```
+
+## How to publish
+
+```sh
+yarn publish
+```
+
+## Resources
+
 Starter kit for creating NPM packages with executable scripts.
 
 [A guide to creating a NodeJS command-line package](https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e)

@@ -36,9 +36,6 @@
   "scripts": {
     "tsc": "tsc",
     "build": "rollup --config",
-    "dev": "ts-node ./scripts/hello.ts",
-    "dev2": "babel-node ./scripts/hello.ts --extensions='.ts'",
-    "fix:prisma:schema": "babel-node ./scripts/fix-prisma-schema.ts --extensions='.ts'",
-    "hello": "hello"
+    "dev": "babel-node ./scripts/hello.ts --extensions='.ts'"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "script-starter-kit",
+  "name": "cli-starter-kit",
   "version": "0.1.0",
-  "description": "Starter kit for executable scripts",
+  "description": "Starter kit for node.js based cli",
   "main": "index.js",
   "author": "Sunny Hirai",
   "license": "MIT",

@@ -37,6 +37,7 @@
   "scripts": {
     "tsc": "tsc",
     "build": "rollup --config",
-    "dev": "babel-node ./scripts/hello.ts --extensions='.ts' --name=John"
+    "dev": "babel-node ./scripts/hello.ts --extensions='.ts' --name=John",
+    "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git"
   }
 }

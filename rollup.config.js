@@ -2,6 +2,7 @@
 import commonjs from "@rollup/plugin-commonjs"
 import json from "@rollup/plugin-json"
 import minimist from "minimist"
+import fs from "fs"
 // import nodePolyfills from "rollup-plugin-node-polyfills"
 // import replace from "rollup-plugin-replace"
 // import resolve from "@rollup/plugin-node-resolve"
@@ -9,13 +10,18 @@ import sizes from "rollup-plugin-sizes"
 // import { terser } from "rollup-plugin-terser"
 import typescript from "rollup-plugin-typescript2"
 
-const args = minimist(process.argv)
-console.log(args)
+// const args = minimist(process.argv)
+// console.log(args)
 // console.log("Running rollup with config/rollup/dynamic/rollup.config.js")
 // console.log("")
 // console.log(`name:   ${args.n}`)
 // console.log(`input:  ${args.i}`)
 // console.log(`output: ${args.o}`)
+
+fs.rmdirSync("./bin", { recursive: true })
+
+const entries = fs.readdirSync("./scripts").map((entry) => `scripts/${entry}`)
+console.log({ entries })
 
 const plugins = [
   /**
@@ -48,7 +54,7 @@ const plugins = [
 
 export default {
   // input: "lib/crash/index.tsx", // Provide in CLI as args.i
-  input: "scripts/hello.ts",
+  input: entries,
   output: [
     {
       banner: "#!/usr/bin/env node",

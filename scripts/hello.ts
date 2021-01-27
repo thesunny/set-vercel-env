@@ -1,5 +1,6 @@
 import { log } from "~/lib/log"
+import minimist from "minimist"
 
-const [, , ...args] = process.argv
+const args = minimist(process.argv)
 
-log("Hello World")
+log(`Hello ${args.name ? args.name : "World"}`)

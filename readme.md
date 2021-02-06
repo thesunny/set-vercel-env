@@ -1,6 +1,6 @@
-# Script Starter Kit
+# CLI Starter Kit
 
-## How to get started with `next-starter-kit`
+## How to get started with `cli-starter-kit`
 
 ```sh
 # in your project root, initialize an empty git repo
@@ -26,7 +26,10 @@ Edit `package.json` to fit your needs
 ## How to update
 
 ```sh
-# re-pull next-starter-kit
+# use the built in script
+yarn update:kit
+
+# or manually re-pull cli-starter-kit
 git pull git@github.com:thesunny/cli-starter-kit.git
 ```
 

@@ -37,6 +37,8 @@
   "scripts": {
     "tsc": "tsc",
     "build": "rollup --config",
+    "# prepare": "# automatically called during 'yarn publish'",
+    "prepare": "yarn build",
     "dev": "babel-node ./scripts/hello.ts --extensions='.ts' --name=John",
     "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git"
   }

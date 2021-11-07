@@ -13,13 +13,22 @@ git pull git@github.com:thesunny/cli-starter-kit.git
 code . package.json
 ```
 
-Edit `package.json` to fit your needs
+## IMPORTANT! Modify "package.json"
+
+Edit these lines in `package.json` to fit your needs
 
 ```json
 {
   "name": "name-of-your-package",
   "version": "0.1.0",
-  "description": "Description of your package"
+  "description": "Description of your package",
+  "bin": {
+    "name-of-command": "./.dist/index.js"
+  },
+  "dependencies": {
+    // when you `yarn build` make sure all `(!) Unresolved dependencies` are
+    // in here and not in `devDependencies`
+  }
 }
 ```
 
@@ -35,8 +44,10 @@ git pull git@github.com:thesunny/cli-starter-kit.git
 
 ## How to publish
 
+This will bump the version.
+
 ```sh
-yarn publish
+yarn prepublish
 ```
 
 ## Resources

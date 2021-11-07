@@ -5,4 +5,4 @@ import { log } from "~/lib/log";
  */
 const args = process.argv.slice(2);
 
-log(args);
+log("Arguments passed in", args);

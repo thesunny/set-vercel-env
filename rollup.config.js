@@ -36,7 +36,7 @@ const plugins = [
 ];
 
 export default {
-  input: "scripts/index.ts",
+  input: "src/index.ts",
   output: [
     {
       banner: "#!/usr/bin/env node",

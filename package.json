@@ -1,6 +1,6 @@
 {
   "name": "cli-starter-kit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Starter kit for node.js based cli",
   "main": "index.js",
   "author": "Sunny Hirai",
@@ -34,8 +34,8 @@
     "build": "rm -rf ./.dist/ && rollup --config rollup.config.js",
     "prepublish": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "-- dev": "# Run the script directly from the src files",
-    "dev": "ts-node --project tsconfig.json ./scripts/index.ts",
-    "production": "./.dist/index.js",
+    "dev": "ts-node --project tsconfig.json ./src/index.ts",
+    "production": "node .dist/index.js",
     "-- update": "# Update this CLI starter kit",
     "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git"
   }

@@ -7,7 +7,7 @@
 git init
 
 # pull next-starter-kit
-git pull https://github.com:thesunny/cli-starter-kit.git
+git pull https://github.com/thesunny/cli-starter-kit.git
 
 # Open the directory and `package.json`
 code . package.json
@@ -39,7 +39,7 @@ Edit these lines in `package.json` to fit your needs
 yarn update:kit
 
 # or manually re-pull cli-starter-kit
-git pull https://github.com:thesunny/cli-starter-kit.git
+git pull https://github.com/thesunny/cli-starter-kit.git
 ```
 
 ## How to publish

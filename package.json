@@ -9,7 +9,7 @@
     ".dist/*"
   ],
   "bin": {
-    "hello": "./.dist/index.js"
+    "set-vercel-env": "./.dist/index.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -39,6 +39,8 @@
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
     "-- update": "# Update this CLI starter kit",
-    "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git"
+    "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git",
+    "-- example": "# Run an example",
+    "example": "ts-node src example.env"
   }
 }

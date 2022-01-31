@@ -47,7 +47,7 @@
      * - `target` and `lib` for modern JavaScript
      */
     "target": "esnext",
-    "lib": ["esnext"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     /**
      * Modules
      *

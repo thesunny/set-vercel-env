@@ -1,7 +1,7 @@
 {
-  "name": "cli-starter-kit",
-  "version": "0.1.5",
-  "description": "Starter kit for node.js based cli",
+  "name": "set-vercel-env",
+  "version": "0.1.1",
+  "description": "Use a dotenv file to set the Vercel env",
   "main": "index.js",
   "author": "Sunny Hirai",
   "license": "MIT",
@@ -27,6 +27,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@thesunny/script-utils": "^0.1.13",
     "chalk": "^4.1.2"
   },
   "scripts": {

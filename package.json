@@ -1,6 +1,6 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Use a dotenv file to set the Vercel env",
   "main": "index.js",
   "author": "Sunny Hirai",

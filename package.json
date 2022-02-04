@@ -1,6 +1,6 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Use a dotenv file to set the Vercel env",
   "main": "index.js",
   "author": "Sunny Hirai",
@@ -27,9 +27,10 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@thesunny/script-utils": "^0.1.13",
+    "@thesunny/script-utils": "^0.1.29",
     "chalk": "^4.1.2",
-    "dotenv": "^14.3.2"
+    "dotenv": "^14.3.2",
+    "superstruct": "^0.15.3"
   },
   "scripts": {
     "tsc": "tsc",

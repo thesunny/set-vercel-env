@@ -1,14 +1,25 @@
-import { spawnSync } from "child_process";
-import dotenv from "dotenv";
-import chalk from "chalk";
-import * as utils from "@thesunny/script-utils";
+import dotenv from "dotenv"
+import chalk from "chalk"
+import * as utils from "@thesunny/script-utils"
+import * as s from "superstruct"
+import { setVercelEnv } from "./set-vercel-env"
+import { Options } from "./set-vercel-env"
 
 /**
+ * VERCEL DOCS:
+ *
+ * https://vercel.com/docs/cli#commands/env
+ *
  * USAGE:
  *
- * Execute this script with a path to a `.env` file as its first argument.
+ * Execute this script with a path to a `.env` file as its first argument,
+ * the environment (production|preview|development) as its second and the
+ * gitbranch as a third if in production.
  *
- *   ts-node scripts/push-vercel-env .env/temporary-test.env
+ *   push-vercel-env .env/temporary-test.env production production
+ *   push-vercel-env .env/temporary-test.env production staging
+ *   push-vercel-env .env/temporary-test.env preview
+ *   push-vercel-env .env/temporary-test.env development
  *
  * Every environment variable in the `.env` file will be first removed and then
  * added. If the value of an environment variable is `` (i.e. empty) then the
@@ -26,129 +37,72 @@ import * as utils from "@thesunny/script-utils";
 /**
  * type with undefined because we're not sure how many args were passed in
  */
-const path: string | undefined = process.argv[2];
+// const path: string | undefined = process.argv[2]
+const [, , path, environment, gitbranch] = process.argv as (
+  | string
+  | undefined
+)[]
 
-utils.title(`Set environment variables from\n${JSON.stringify(path)}`);
+utils.task("Checking CLI arguments")
+utils.message(JSON.stringify(process.argv.slice(2)))
 
-utils.ensureFileExists(path);
+if (typeof path !== "string") {
+  utils.fail("Expected first CLI arg [path-to-env] to be defined")
+}
+if (!path.endsWith(".env")) {
+  utils.fail("Expected first CLI arg [path-to-env] to end in '.env'")
+}
+
+function checkOptions(
+  environment: string | undefined,
+  gitbranch: string | undefined
+): Options {
+  if (typeof environment !== "string") {
+    utils.fail("Expected second CLI arg [environment] to be defined")
+  }
+  if (!["production", "preview", "development"].includes(environment)) {
+    utils.fail(
+      `Expected second CLI arg to be production, preview or development but is ${JSON.stringify(
+        environment
+      )}`
+    )
+  }
+  s.assert(environment, s.enums(["production", "preview", "development"]))
+  if (environment !== "preview" && typeof gitbranch === "string") {
+    utils.fail(
+      "Third CLI arg cannot be defined expected for in preview environment"
+    )
+  }
+  utils.pass("Done")
+  if (environment === "preview") {
+    return { environment, gitbranch }
+  } else {
+    return { environment }
+  }
+}
+
+const options = checkOptions(environment, gitbranch)
+
+utils.title(`Set environment variables from\n${JSON.stringify(path)}`)
+
+utils.ensureFileExists(path)
 /**
  * If path wasn't set, show a reminder
  */
 if (typeof path === "undefined") {
-  console.log(chalk.red(`A path argument must be provided but is not`));
-  process.exit(1);
+  console.log(chalk.red(`A path argument must be provided but is not`))
+  process.exit(1)
 }
 
 /**
  * Load env variables using dotenv. Returns `undefined` if a file is not found
  */
-const env = dotenv.config({ path }).parsed;
+const env = dotenv.config({ path }).parsed
 
 if (env === undefined) {
-  console.log(chalk.red(`Could not find .env file at ${JSON.stringify(path)}`));
-  console.log();
-  process.exit(1);
+  console.log(chalk.red(`Could not find .env file at ${JSON.stringify(path)}`))
+  console.log()
+  process.exit(1)
 }
 
-/**
- * Show the env variables we are outputting
- */
-utils.task("Log environment variables");
-for (const [key, value] of Object.entries(env)) {
-  console.log(`${key}=${value}`);
-}
-utils.pass("Done");
-
-Object.entries(env).map(([key, value]) => {
-  try {
-    /**
-     * Remove each env var first or Vercel won't allow us to add a new one.
-     * We don't want to show all the error messages so we we use the `stdio`
-     * option to swallow them without showing them.
-     *
-     * the `stdio` property is set to handle `stdin`, `stdout` and `stderror`
-     * in custom ways.
-     *
-     * https://nodejs.org/api/child_process.html#optionsstdio
-     */
-    utils.task(`Remove ${key}`);
-    /**
-     * spawnSync does not open up a new shell while execSync does. spawnSync
-     * also gives us a return object with information in it while execSync
-     * returned no useful information (though it it supposed to return `stdout`).
-     * In fact, `stdout` just gets output to the screen and we can't access it.
-     *
-     * Note that the `stdio` shown below may not be necessary but is there for
-     * clarity.
-     */
-    const removeResult = spawnSync("vercel", ["env", "rm", key, "-y"], {
-      encoding: "utf8",
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    /**
-     * `spawnSync` should return the output of the command in the `stdout`
-     * property of the result but for some reason returns it in `stderr`.
-     *
-     * I think this may be an issue in the `vercel` cli where it's using
-     * stderr instead of stdout to display data.
-     *
-     * I can't see what this is and a few experiments I did to switch this up
-     * (like changing the `stdio` props in multiple ways) was unsuccessful.
-     *
-     * For the time being, this works though.
-     */
-    if (removeResult.stderr.includes("Removed Environment Variable")) {
-      utils.pass(`Done`);
-    } else if (
-      removeResult.stderr.includes("Environment Variable was not found")
-    ) {
-      utils.pass(`Done (no env var to remove)`);
-    } else {
-      utils.fail(removeResult.stderr);
-    }
-  } catch (e) {
-    utils.fail(e);
-  }
-
-  if (value === "") {
-    utils.task(`Skip adding ${key} (it's blank)`);
-    utils.pass("Done");
-  } else {
-    /**
-     * Add each env var. We are more interested that it succeeded here so we
-     * don't swallow the output.
-     */
-    utils.task(`Add ${key}=${value}`);
-    /**
-     * spawnSync does not open up a new shell while execSync does. spawnSync
-     * also gives us a return object with information in it while execSync
-     * returned no useful information (though it it supposed to return `stdout`).
-     * In fact, `stdout` just gets output to the screen and we can't access it.
-     *
-     * Note that the `stdio` shown below may not be necessary but is there for
-     * clarity.
-     */
-    const addResult = spawnSync("vercel", ["env", "add", key, "production"], {
-      input: value,
-      encoding: "utf8",
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    /**
-     * `spawnSync` should return the output of the command in the `stdout`
-     * property of the result but for some reason returns it in `stderr`.
-     *
-     * I think this may be an issue in the `vercel` cli where it's using
-     * stderr instead of stdout to display data.
-     *
-     * I can't see what this is and a few experiments I did to switch this up
-     * (like changing the `stdio` props in multiple ways) was unsuccessful.
-     *
-     * For the time being, this works though.
-     */
-    if (addResult.stderr.includes("Added Environment Variable")) {
-      utils.pass(`Done`);
-    } else {
-      utils.fail(addResult.stderr);
-    }
-  }
-});
+setVercelEnv(env, options)

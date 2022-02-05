@@ -1,15 +1,16 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Use a dotenv file to set the Vercel env",
-  "main": "index.js",
+  "main": "./.dist/src/index.js",
+  "types": "./.dist/src/index.d.ts",
   "author": "Sunny Hirai",
   "license": "MIT",
   "files": [
     ".dist/*"
   ],
   "bin": {
-    "set-vercel-env": "./.dist/index.js"
+    "set-vercel-env": "./.dist/src/index.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -33,15 +34,18 @@
     "superstruct": "^0.15.3"
   },
   "scripts": {
-    "tsc": "tsc",
-    "build": "rm -rf ./.dist/ && rollup --config rollup.config.js",
-    "prepublish": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "build:rollup": "rm -rf ./.dist/ && rollup --config rollup.config.js",
+    "build:tsc": "rm -rf ./.dist && tsc -p tsconfig.tsc.json && echo 'Finished tsc build'",
+    "prepublish": "yarn build:tsc && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
     "-- update": "# Update this CLI starter kit",
     "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git",
     "-- example": "# Run an example",
-    "example": "ts-node src example.env"
+    "example": "ts-node src example.env",
+    "-- preset": "# Run preset from @thesunny/presets",
+    "preset": "ts-node --project node_modules/@thesunny/presets/tsconfig.ts-node.json node_modules/@thesunny/presets/bin/index.ts",
+    "-- tsc": "# Compile Typescript"
   }
 }

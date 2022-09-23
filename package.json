@@ -1,6 +1,6 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Use a dotenv file to set the Vercel env",
   "main": "./.dist/src/index.js",
   "types": "./.dist/src/index.d.ts",
@@ -36,7 +36,7 @@
   "scripts": {
     "build:rollup": "rm -rf ./.dist/ && rollup --config rollup.config.js",
     "build:tsc": "rm -rf ./.dist && tsc -p tsconfig.tsc.json && echo 'Finished tsc build'",
-    "prepublish": "yarn build:tsc && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "prepublish:npm": "yarn build:tsc && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",

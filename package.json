@@ -1,6 +1,6 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Use a dotenv file to set the Vercel env",
   "license": "MIT",
   "author": "Sunny Hirai",

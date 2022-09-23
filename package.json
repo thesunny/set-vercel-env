@@ -1,6 +1,6 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.9",
+  "version": "0.1.17",
   "description": "Use a dotenv file to set the Vercel env",
   "main": "./.dist/src/index.js",
   "types": "./.dist/src/index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "set-vercel-env",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Use a dotenv file to set the Vercel env",
   "license": "MIT",
   "author": "Sunny Hirai",
@@ -18,6 +18,7 @@
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
+    "@thesunny/assert-type": "^0.1.7",
     "@types/debug": "^4.1.5",
     "@types/jest": "^27",
     "@types/minimist": "^1.2.1",

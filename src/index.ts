@@ -70,7 +70,16 @@ function checkOptions(
       )}`
     );
   }
-  s.assert(environment, s.enums(["production", "preview", "development"]));
+  // s.assert(environment, s.enums(["production", "preview", "development"]));
+  s.assert(
+    environment,
+    s.union([
+      s.literal("production"),
+      s.literal("preview"),
+      s.literal("development"),
+    ])
+  );
+
   if (environment !== "preview" && typeof gitbranch === "string") {
     utils.fail(
       "Third CLI arg cannot be defined expected for in preview environment"

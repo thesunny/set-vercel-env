@@ -84,10 +84,10 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@thesunny/script-utils@^0.1.50":
-  version "0.1.50"
-  resolved "https://registry.yarnpkg.com/@thesunny/script-utils/-/script-utils-0.1.50.tgz#cc3f81716cf364782e89fed4e6d722948736253f"
-  integrity sha512-8stTtpswpLJLpurrZoSnS2V2dbm9qQY9awU7Jn7A+HVEVjbUk29sgTW3XTAK2RsjwVFQ4Jh6zFIDGzhpieIbXw==
+"@thesunny/script-utils@^0.1.51":
+  version "0.1.51"
+  resolved "https://registry.yarnpkg.com/@thesunny/script-utils/-/script-utils-0.1.51.tgz#d989fae7587dacc76fae017e382448097f5b8fa0"
+  integrity sha512-uG2iqAxpk56gLDG3cCwbnyagkDKgMJwhkpnVofWuKGx8TzK9jx131TEsol2B5xMMe8FKym7BGD1LwNrb7z+qHA==
   dependencies:
     chalk "^4"
     fs-extra "^10.0.0"
